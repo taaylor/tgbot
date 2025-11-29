@@ -1,0 +1,13 @@
+[flake8]
+# config
+
+test-func-name-validator-regex = "test_.*"
+max-line-length = 88
+suppress-dummy-args = true
+literal-inline-quotes = "double"
+literal-multiline-quotes = "double"
+literal-docstring-quotes = "double"
+literal-include-name = true
+
+extend-ignore =
+    ANN101 ANN102

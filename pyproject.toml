@@ -1,0 +1,52 @@
+[project]
+name = "tgbot"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Maksim Ushakov",email = "jw999coding@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.12,<4.0"
+dependencies = [
+    "aiogram (>=3.22.0,<4.0.0)",
+    "dotenv (>=0.9.9,<0.10.0)",
+    "apscheduler (>=3.11.1,<4.0.0)",
+    "pydantic-settings (>=2.12.0,<3.0.0)"
+]
+
+[tool.poetry.group.lint.dependencies]
+pre-commit = "3.8.0"
+black = "25.1.0"
+isort = "6.0.1"
+flake8 = "7.0.0"
+mypy = "1.15.0"
+flake8-annotations = "2.9.1"
+
+[tool.poetry]
+package-mode = false
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.isort]
+profile = "black"
+py_version = 312
+combine_as_imports = true
+no_lines_before = "LOCALFOLDER"
+reverse_relative = true
+line_length = 88
+
+[tool.mypy]
+strict = true
+warn_unreachable = true
+warn_redundant_casts = true
+disable_error_code = ["prop-decorator"]
+plugins = [
+  "pydantic.mypy",
+]
+
+[tool.pydantic-mypy]
+init_typed = false
+init_forbid_extra = true
+warn_required_dynamic_aliases = true
