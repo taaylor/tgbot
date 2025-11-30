@@ -3,6 +3,7 @@ from aiogram.filters import CommandStart, StateFilter
 from aiogram.types import ReplyKeyboardMarkup
 
 import texts
+from inline_kb import keyboards
 from telegram_ext import MessageFromUser, StartCommandWithDeepLinkObject
 
 router = Router(name="start")
@@ -31,4 +32,6 @@ async def handlers_start(
     )
 
     if command.args is not None and command.args == "magic":
-        await message.answer(text=texts.EASTER_EGGS_MESSAGE)
+        await message.answer(
+            text=texts.EASTER_EGGS_MESSAGE, reply_markup=keyboards.my_contacts
+        )

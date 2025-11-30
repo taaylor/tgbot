@@ -2,14 +2,20 @@ from __future__ import annotations
 
 import logging
 import warnings
-from typing import Any
+from typing import Any, Union
 
 from aiogram import Bot, Dispatcher, Router
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from aiogram.filters import CommandObject
 from aiogram.fsm.storage.base import BaseStorage
-from aiogram.types import ChatMemberUpdated, Message, User
+from aiogram.types import (
+    CallbackQuery,
+    ChatMemberUpdated,
+    InaccessibleMessage,
+    Message,
+    User,
+)
 
 import texts
 from settings import TelegramSettings
@@ -109,3 +115,6 @@ with warnings.catch_warnings():
 
     class StartCommandWithDeepLinkObject(CommandObject):
         args: str  # marking args (deep link) as required for mypy
+
+    class CallbackQueryExt(CallbackQuery):
+        message: Union[Message, InaccessibleMessage]  # marking bot as required for mypy

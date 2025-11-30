@@ -1,15 +1,16 @@
-import random
-
 from aiogram import Router
-from aiogram.enums.dice_emoji import DiceEmoji
+from aiogram.enums import DiceEmoji
 
+from inline_kb import keyboards
 from telegram_ext import MessageExt
 from utils.validators import command_filter
 
-router = Router(name="lucky")
+router = Router(name="entertainment")
 
 
-@router.message(command_filter("lucky"))
-async def handlers_lucky(message: MessageExt) -> None:
-    dice_emoji: DiceEmoji = random.choice(tuple(DiceEmoji))
-    await message.answer_dice(emoji=dice_emoji)
+@router.message(command_filter("entertainment"))
+async def handlers_entertainment(message: MessageExt) -> None:
+    await message.answer(
+        text=f"Список развлечений {DiceEmoji.DICE.value}",
+        reply_markup=keyboards.entertainments,
+    )

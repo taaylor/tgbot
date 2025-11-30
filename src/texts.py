@@ -3,7 +3,7 @@ from aiogram.types import BotCommand, KeyboardButton
 COMMAND_DESCRIPTIONS = {
     "/support": "Обращение в поддержку",
     "/hh": "Вакансии на hh",
-    "/lucky": "Испытать удачу",
+    "/entertainment": "Развлечения",
 }
 
 BOT_COMMANDS: list[BotCommand] = [
@@ -28,6 +28,5 @@ WELCOME_USER = """
 EASTER_EGGS_MESSAGE = """
 <b>Ты нашёл секретную информацию о боте ✨</b>
 <b>Разработчик:</b> Максим
-<b>Telegram:</b> <a href="https://t.me/taaaylor">@taaaylor</a>
-<i>Это его самый первый разработанный бот ;)</i>
+Это его самый первый бот ;)
 """
