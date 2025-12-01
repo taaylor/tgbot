@@ -9,12 +9,14 @@ class KeyboardsApp:
             inline_keyboard=[
                 [
                     InlineKeyboardButton(
-                        text="Мой GitHub", url="https://github.com/taaylor/"
+                        text="Мой GitHub",
+                        url="https://github.com/taaylor/",
                     )
                 ],
                 [
                     InlineKeyboardButton(
-                        text="Мой Telegram", url="https://t.me/taaaylor/"
+                        text="Мой Telegram",
+                        url="https://t.me/taaaylor/",
                     )
                 ],
                 [
@@ -32,7 +34,8 @@ class KeyboardsApp:
             inline_keyboard=[
                 [
                     InlineKeyboardButton(
-                        text="Испытать удачу", callback_data="lucky_game"
+                        text="Испытать удачу",
+                        callback_data="lucky_game",
                     )
                 ],
                 [
@@ -42,6 +45,19 @@ class KeyboardsApp:
                     )
                 ],
             ]
+        )
+
+    @property
+    def hh_main(self) -> InlineKeyboardMarkup:
+        return InlineKeyboardMarkup(
+            inline_keyboard=[
+                [
+                    InlineKeyboardButton(
+                        text="Поиск вакансий",
+                        callback_data="hh_vacancies",
+                    )
+                ]
+            ],
         )
 
 
