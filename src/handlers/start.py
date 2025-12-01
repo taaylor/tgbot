@@ -10,11 +10,10 @@ router = Router(name="start")
 
 
 @router.message(StateFilter(None), CommandStart())
-async def handlers_start(
+async def handler_start(
     message: MessageFromUser,
     command: StartCommandWithDeepLinkObject,
 ) -> None:
-
     await message.answer(
         text=(
             texts.WELCOME_PREMIUM_USER

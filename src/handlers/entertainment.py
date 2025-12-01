@@ -9,7 +9,7 @@ router = Router(name="entertainment")
 
 
 @router.message(command_filter("entertainment"))
-async def handlers_entertainment(message: MessageExt) -> None:
+async def handler_entertainment(message: MessageExt) -> None:
     await message.answer(
         text=f"Список развлечений {DiceEmoji.DICE.value}",
         reply_markup=keyboards.entertainments,
