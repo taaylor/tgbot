@@ -5,7 +5,7 @@ from contextlib import asynccontextmanager
 from aiogram.fsm.storage.memory import MemoryStorage
 
 from callback import entertainment as entertainment_callback
-from handlers import entertainment, start
+from handlers import entertainment, start, vacancies
 from settings import telegram_settings
 from telegram_ext import TelegramApp
 
@@ -18,6 +18,7 @@ async def lifespan() -> AsyncIterator[None]:
     app.include_router(start.router)
     app.include_router(entertainment.router)
     app.include_router(entertainment_callback.router)
+    app.include_router(vacancies.router)
 
     await app.initialize_from_settings(
         settings=telegram_settings,

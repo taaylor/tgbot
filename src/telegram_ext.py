@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import logging
 import warnings
-from typing import Any, Union
+from typing import Any
 
 from aiogram import Bot, Dispatcher, Router
 from aiogram.client.default import DefaultBotProperties
@@ -117,4 +117,4 @@ with warnings.catch_warnings():
         args: str  # marking args (deep link) as required for mypy
 
     class CallbackQueryExt(CallbackQuery):
-        message: Union[Message, InaccessibleMessage]  # marking bot as required for mypy
+        message: Message | InaccessibleMessage  # marking bot as required for mypy
