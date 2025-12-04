@@ -60,5 +60,18 @@ class KeyboardsApp:
             ],
         )
 
+    @property
+    def hh_vacancies(self) -> InlineKeyboardMarkup:
+        return InlineKeyboardMarkup(
+            inline_keyboard=[
+                [
+                    InlineKeyboardButton(
+                        text="Вернуться",
+                        callback_data="hh_main",
+                    )
+                ],
+            ]
+        )
+
 
 keyboards: KeyboardsApp = KeyboardsApp()

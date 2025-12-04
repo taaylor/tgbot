@@ -7,6 +7,10 @@ from pydantic import BaseModel, ConfigDict, Field
 from utils.httpx_client import HHClient
 
 
+class NameField(BaseModel):
+    name: str | None = None
+
+
 class BasePydantic(BaseModel):
     model_config = ConfigDict(extra="ignore")
 
@@ -16,25 +20,28 @@ class Salary(BasePydantic):
     to: int | float | None = None
 
 
-class Employer(BasePydantic):
-    name: str | None = None
+class Employer(BasePydantic, NameField):
+    # name field for mypy
+    pass
 
 
-class Area(BasePydantic):
-    name: str | None = None
+class Area(BasePydantic, NameField):
+    # name field for mypy
+    pass
 
 
-class Experience(BasePydantic):
-    name: str | None = None
+class Experience(BasePydantic, NameField):
+    # name field for mypy
+    pass
 
 
-class Schedule(BasePydantic):
-    name: str | None = None
+class Schedule(BasePydantic, NameField):
+    # name field for mypy
+    pass
 
 
-class HHVacansy(BasePydantic):
+class HHVacansy(BasePydantic, NameField):
     url: str
-    name: str | None = None
     salary: Salary | None = None
     employer: Employer | None = None
     area: Area | None = None
@@ -49,7 +56,9 @@ class HHServise:
         self.hh_client: HHClient = hh_client
 
     async def fetch_vacansy(
-        self, descriptions: str, page: int = 1
+        self,
+        descriptions: str,
+        page: int = 1,
     ) -> list[HHVacansy] | None:
         try:
             vacancies: Response = (

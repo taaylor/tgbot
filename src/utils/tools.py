@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, datetime, timezone
 
 from faker import Faker
 from pydantic import BaseModel
@@ -32,3 +32,7 @@ class RandomData:
 
 
 random_data: RandomData = RandomData()
+
+
+def datetime_utc_now() -> datetime:
+    return datetime.now(tz=timezone.utc)
