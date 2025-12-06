@@ -8,9 +8,9 @@ class RedisSettings(BaseModel):
     host: str = Field(default="localhost", description="redis host")
     port: int = Field(default=6379, description="redis port")
     fsm_db: int = Field(default=0, description="redis database")
-    password: str = Field(default="1234", description="redis password")
+    password: str = Field(default="qwerty1234", description="redis password")
     user: str = Field(default="redis_user", description="redis user")
-    user_password: str = Field(default="1234", description="redis user password")
+    user_password: str = Field(default="qwerty1234", description="redis user password")
 
     @computed_field
     @property
@@ -28,7 +28,7 @@ class RedisSettings(BaseModel):
 class TelegramSettings(BaseSettings):
     token: str | None = Field(default=None, description="bot token")
     debug: bool = Field(default=True, description="app mode")
-    admin: int = Field(default=1064716313, description="admin app")
+    admin: int = Field(default=11111, description="admin app")
     redis: RedisSettings = RedisSettings()
 
     media: str = Field(

@@ -41,7 +41,7 @@ class Schedule(BasePydantic, NameField):
 
 
 class HHVacansy(BasePydantic, NameField):
-    url: str
+    url: str = Field(alias="alternate_url")
     salary: Salary | None = None
     employer: Employer | None = None
     area: Area | None = None

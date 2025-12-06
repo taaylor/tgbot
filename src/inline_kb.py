@@ -70,6 +70,12 @@ class KeyboardsApp:
                         callback_data="hh_main",
                     )
                 ],
+                [
+                    InlineKeyboardButton(
+                        text="Показать следующие вакансии",
+                        callback_data="hh_vacancies_next",
+                    )
+                ],
             ]
         )
 

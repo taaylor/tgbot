@@ -3,6 +3,7 @@ from asyncio import sleep
 
 from aiogram import Router
 from aiogram.filters import CommandStart, StateFilter
+from aiogram.fsm.context import FSMContext
 from aiogram.types import FSInputFile, ReplyKeyboardMarkup
 from aiogram.utils.chat_action import ChatActionSender
 
@@ -18,7 +19,9 @@ router = Router(name="start")
 async def handler_start(
     message: MessageFromUser,
     command: StartCommandWithDeepLinkObject,
+    state: FSMContext,
 ) -> None:
+    await state.clear()
     await message.answer(
         text=(
             texts.WELCOME_PREMIUM_USER

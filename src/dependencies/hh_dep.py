@@ -1,10 +1,12 @@
 from aiogram.filters import Filter
+from aiogram.fsm.context import FSMContext
+from aiogram.types import Message
 
 from hh_api.hh_service import HHServise, HHVacansy
-from telegram_ext import MessageExt
+from telegram_ext import CallbackQueryExt, MessageExt
 
 
-class HHVacanciesFilter(Filter):
+class HHVacanciesDep(Filter):
 
     __slots__ = ("hh_service",)
 
@@ -13,12 +15,27 @@ class HHVacanciesFilter(Filter):
 
     async def __call__(
         self,
-        message: MessageExt,
+        event: MessageExt | CallbackQueryExt,
+        state: FSMContext,
     ) -> bool | dict[str, str | list[HHVacansy]]:
-        if message.text is None or message.text.isdigit():
+        state_data = await state.get_data()
+        desc, page = state_data.get("descriptions"), state_data.get("page", 1)
+
+        text: str | None = None
+        if isinstance(event, Message):
+            text = event.text
+
+        if desc is None and text is None:
             return False
 
-        vacancies = await self.hh_service.fetch_vacansy(descriptions=message.text)
+        vacancies = await self.hh_service.fetch_vacansy(
+            descriptions=desc or text,  # type: ignore[arg-type]
+            page=page,
+        )
+        await state.update_data(
+            page=page + 1,
+            descriptions=desc or text,
+        )
 
         if vacancies is None:
             return {"vacancies": "По запросу вакансий не найдено :("}
