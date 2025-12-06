@@ -53,7 +53,7 @@ async def handler_start(
             else:
                 audio = handler_start.__dict__["music"]
 
-            msg = await message.answer_audio(audio=audio, caption="Зачитай под бит :))")
+            msg = await message.answer_audio(audio=audio, caption="Зачитай под бит :)")
 
             if msg.audio is not None:
                 handler_start.__dict__["music"] = msg.audio.file_id

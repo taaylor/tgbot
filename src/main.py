@@ -2,7 +2,7 @@ import asyncio
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 
-from aiogram.fsm.storage.memory import MemoryStorage
+from aiogram.fsm.storage.redis import RedisStorage
 
 from callback import entertainment as entertainment_callback
 from handlers import entertainment, start, vacancies
@@ -22,7 +22,7 @@ async def lifespan() -> AsyncIterator[None]:
 
     await app.initialize_from_settings(
         settings=telegram_settings,
-        storage=MemoryStorage(),
+        storage=RedisStorage.from_url(telegram_settings.redis.dsn),
     )
     await app.bot.delete_webhook(drop_pending_updates=True)
     # TODO: warning polling
@@ -37,11 +37,11 @@ async def lifespan() -> AsyncIterator[None]:
 
 async def main() -> None:
     async with lifespan():
-        ...
+        pass
 
 
 if __name__ == "__main__":
     try:
         asyncio.run(main())
     except (RuntimeError, KeyboardInterrupt):
-        ...
+        pass

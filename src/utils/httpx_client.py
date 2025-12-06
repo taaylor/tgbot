@@ -1,11 +1,9 @@
-from typing import Any
+from abc import ABC
 
 from httpx import AsyncClient, Response
 
-AnyJson = dict[str, Any]
 
-
-class BaseBridge:
+class BaseBridge(ABC):
     def __init__(
         self,
         *,
