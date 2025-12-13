@@ -26,4 +26,4 @@ ENV PATH="/opt/app/.venv/bin:$PATH"
 RUN useradd -m tgbotuser
 USER tgbotuser
 
-ENTRYPOINT [ "python3", "./src/main.py" ]
+ENTRYPOINT [ "python3", "src" ]

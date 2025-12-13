@@ -1,6 +1,6 @@
 import asyncio
 from collections.abc import AsyncIterator
-from contextlib import asynccontextmanager
+from contextlib import asynccontextmanager, suppress
 
 from aiogram.fsm.storage.redis import RedisStorage
 
@@ -11,9 +11,7 @@ from telegram_ext import TelegramApp
 
 
 @asynccontextmanager
-async def lifespan() -> AsyncIterator[None]:
-    app: TelegramApp = TelegramApp()
-
+async def lifespan(app: TelegramApp) -> AsyncIterator[None]:
     # routing sections
     app.include_router(start.router)
     app.include_router(entertainment.router)
@@ -25,19 +23,21 @@ async def lifespan() -> AsyncIterator[None]:
         storage=RedisStorage.from_url(telegram_settings.redis.dsn),
     )
     await app.bot.delete_webhook(drop_pending_updates=True)
-    # TODO: warning polling
-    await app.dispatcher.start_polling(app.bot)
+    polling = asyncio.create_task(app.dispatcher.start_polling(app.bot))
+    try:
+        yield
+    finally:
+        polling.cancel()
+        with suppress(asyncio.CancelledError):
+            await polling
 
-    yield
-
-    await app.dispatcher.stop_polling()
-    await app.dispatcher.storage.close()
-    await app.bot.session.close()
+        await app.dispatcher.storage.close()
+        await app.bot.session.close()
 
 
 async def main() -> None:
-    async with lifespan():
-        pass
+    async with lifespan(TelegramApp()):
+        await asyncio.Event().wait()
 
 
 if __name__ == "__main__":
